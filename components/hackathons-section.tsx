@@ -37,7 +37,7 @@ const hackathons = [
 
 export default function HackathonsSection() {
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="hackathons" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       <h2 className="text-4xl font-bold mb-4">Active & Past Hackathons</h2>
       <p className="text-foreground/60 mb-12">Compete, build, and win big with the 0rca community</p>
 
@@ -55,13 +55,12 @@ export default function HackathonsSection() {
                     {hackathon.title}
                   </h3>
                   <Badge
-                    className={`ml-auto sm:ml-0 ${
-                      hackathon.status === "Live"
+                    className={`ml-auto sm:ml-0 ${hackathon.status === "Live"
                         ? "bg-accent/20 text-accent border border-accent/30"
                         : hackathon.status === "Upcoming"
                           ? "bg-primary/20 text-primary border border-primary/30"
                           : "bg-foreground/10 text-foreground/60 border border-foreground/20"
-                    }`}
+                      }`}
                   >
                     {hackathon.status}
                   </Badge>

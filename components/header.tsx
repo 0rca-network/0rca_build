@@ -22,11 +22,11 @@ export default function Header() {
           <Link href="/ideas" className="text-sm text-foreground/70 hover:text-foreground transition-colors">
             Ideas
           </Link>
-          <Link href="#resources" className="text-sm text-foreground/70 hover:text-foreground transition-colors">
+          <Link href="https://docs.0rca.network" target="_blank" rel="noopener noreferrer" className="text-sm text-foreground/70 hover:text-foreground transition-colors">
             Resources
           </Link>
-          <Link href="#grants" className="text-sm text-foreground/70 hover:text-foreground transition-colors">
-            Grants
+          <Link href="/#hackathons" className="text-sm text-foreground/70 hover:text-foreground transition-colors">
+            Hackathons
           </Link>
         </div>
 
