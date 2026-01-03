@@ -25,3 +25,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# Large SVG files
+public/pexels-adrien-olichon-1257089-2931290.svg
+public/pexels-falling4utah-1934846.svg

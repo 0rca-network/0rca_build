@@ -6,9 +6,12 @@ import HackathonsSection from "@/components/hackathons-section"
 import RegistrationForm from "@/components/registration-form"
 import Footer from "@/components/footer"
 
+import ParallaxBackground from "@/components/parallax-background"
+
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <main className="min-h-screen bg-transparent text-foreground overflow-x-hidden relative">
+      <ParallaxBackground />
       <Header />
       <Hero />
       <TheoryBlocks />

@@ -72,7 +72,7 @@ export default function HackathonsSection() {
           <Card
             key={hackathon.id}
             onClick={() => handleHackathonClick(hackathon)}
-            className="group p-6 bg-gradient-to-r from-card to-card/50 border border-white/10 rounded-xl hover:border-primary/50 hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 cursor-pointer"
+            className="group p-6 bg-gradient-to-r from-card to-card/50 border border-white/10 rounded-xl hover:border-custom-hover hover:shadow-lg hover:shadow-custom-hover/20 transition-all duration-300 cursor-pointer"
           >
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="flex-grow">
@@ -83,10 +83,10 @@ export default function HackathonsSection() {
                   </h3>
                   <Badge
                     className={`ml-auto sm:ml-0 ${hackathon.status === "Live"
-                        ? "bg-accent/20 text-accent border border-accent/30"
-                        : hackathon.status === "Upcoming"
-                          ? "bg-primary/20 text-primary border border-primary/30"
-                          : "bg-foreground/10 text-foreground/60 border border-foreground/20"
+                      ? "bg-accent/20 text-accent border border-accent/30"
+                      : hackathon.status === "Upcoming"
+                        ? "bg-primary/20 text-primary border border-primary/30"
+                        : "bg-foreground/10 text-foreground/60 border border-foreground/20"
                       }`}
                   >
                     {hackathon.status}
@@ -123,10 +123,10 @@ export default function HackathonsSection() {
                 <div className="flex items-center justify-between mb-2">
                   <Badge
                     className={`${selectedHackathon.status === "Live"
-                        ? "bg-accent/20 text-accent border border-accent/30"
-                        : selectedHackathon.status === "Upcoming"
-                          ? "bg-primary/20 text-primary border border-primary/30"
-                          : "bg-foreground/10 text-foreground/60 border border-foreground/20"
+                      ? "bg-accent/20 text-accent border border-accent/30"
+                      : selectedHackathon.status === "Upcoming"
+                        ? "bg-primary/20 text-primary border border-primary/30"
+                        : "bg-foreground/10 text-foreground/60 border border-foreground/20"
                       }`}
                   >
                     {selectedHackathon.status}

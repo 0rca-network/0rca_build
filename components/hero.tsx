@@ -19,7 +19,7 @@ export default function Hero() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button
             onClick={() => document.getElementById('registration-form')?.scrollIntoView({ behavior: 'smooth' })}
-            className="bg-foreground text-background hover:bg-foreground/90 font-semibold text-base h-12 px-8"
+            className="bg-primary text-primary-foreground hover:bg-custom-hover font-semibold text-base h-12 px-8"
           >
             Get Started <ArrowRight className="w-4 h-4 ml-2" />
           </Button>

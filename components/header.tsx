@@ -19,16 +19,16 @@ export default function Header() {
         </Link>
 
         <div className="hidden md:flex items-center gap-8">
-          <Link href="/ideas" className="text-sm text-foreground/70 hover:text-foreground transition-colors">
+          <Link href="/ideas" className="text-sm text-foreground/70 hover:text-foreground transition-colors nav-link">
             Ideas
           </Link>
-          <Link href="https://docs.0rca.network" target="_blank" rel="noopener noreferrer" className="text-sm text-foreground/70 hover:text-foreground transition-colors">
+          <Link href="https://docs.0rca.network" target="_blank" rel="noopener noreferrer" className="text-sm text-foreground/70 hover:text-foreground transition-colors nav-link">
             Resources
           </Link>
-          <Link href="/#hackathons" className="text-sm text-foreground/70 hover:text-foreground transition-colors">
+          <Link href="/#hackathons" className="text-sm text-foreground/70 hover:text-foreground transition-colors nav-link">
             Hackathons
           </Link>
-          <Link href="https://discord.gg/0rca" target="_blank" rel="noopener noreferrer" className="text-sm text-foreground/70 hover:text-foreground transition-colors">
+          <Link href="https://discord.gg/0rca" target="_blank" rel="noopener noreferrer" className="text-sm text-foreground/70 hover:text-foreground transition-colors nav-link">
             Join Discord
           </Link>
         </div>
