@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card } from "@/components/ui/card"
 import { Mail, CheckCircle } from "lucide-react"
+import { registerUser } from "@/actions/register"
 
 export default function RegistrationForm() {
   const router = useRouter()
@@ -39,7 +40,7 @@ export default function RegistrationForm() {
   }
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-md mx-auto">
+    <section id="registration-form" className="py-20 px-4 sm:px-6 lg:px-8 max-w-md mx-auto">
       <h2 className="text-4xl font-bold text-center mb-4">Ready to Build?</h2>
       <p className="text-center text-foreground/60 mb-12">
         Register now and join the future of decentralized AI agents
@@ -53,7 +54,18 @@ export default function RegistrationForm() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form action={async (formData) => {
+          setIsLoading(true)
+          const result = await registerUser(formData)
+          setIsLoading(false)
+          if (result.success) {
+            setSubmitted(true)
+            setFormData({ name: "", email: "", github: "", building: "" })
+            setTimeout(() => router.push("/ideas"), 1500)
+          } else {
+            alert(result.message) // Simple error handling for now
+          }
+        }} className="space-y-5">
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
               Full Name
@@ -63,8 +75,6 @@ export default function RegistrationForm() {
               name="name"
               type="text"
               placeholder="Your name"
-              value={formData.name}
-              onChange={handleChange}
               required
               className="bg-background/50 border-white/10 focus:border-primary/50 focus:shadow-lg focus:shadow-primary/20"
             />
@@ -79,8 +89,6 @@ export default function RegistrationForm() {
               name="email"
               type="email"
               placeholder="you@example.com"
-              value={formData.email}
-              onChange={handleChange}
               required
               className="bg-background/50 border-white/10 focus:border-primary/50 focus:shadow-lg focus:shadow-primary/20"
             />
@@ -95,8 +103,6 @@ export default function RegistrationForm() {
               name="github"
               type="url"
               placeholder="https://github.com/yourprofile"
-              value={formData.github}
-              onChange={handleChange}
               className="bg-background/50 border-white/10 focus:border-primary/50 focus:shadow-lg focus:shadow-primary/20"
             />
           </div>
@@ -109,8 +115,6 @@ export default function RegistrationForm() {
               id="building"
               name="building"
               placeholder="Describe your project, ideas, or what you plan to build..."
-              value={formData.building}
-              onChange={handleChange}
               required
               rows={4}
               className="bg-background/50 border-white/10 focus:border-primary/50 focus:shadow-lg focus:shadow-primary/20 resize-none"

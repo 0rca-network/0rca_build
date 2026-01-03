@@ -17,7 +17,10 @@ export default function Hero() {
           0rca is the premier platform for deploying, monetizing, and orchestrating autonomous AI agents on-chain.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button className="bg-foreground text-background hover:bg-foreground/90 font-semibold text-base h-12 px-8">
+          <Button
+            onClick={() => document.getElementById('registration-form')?.scrollIntoView({ behavior: 'smooth' })}
+            className="bg-foreground text-background hover:bg-foreground/90 font-semibold text-base h-12 px-8"
+          >
             Get Started <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
           <Button

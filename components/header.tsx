@@ -28,10 +28,13 @@ export default function Header() {
           <Link href="/#hackathons" className="text-sm text-foreground/70 hover:text-foreground transition-colors">
             Hackathons
           </Link>
+          <Link href="https://discord.gg/0rca" target="_blank" rel="noopener noreferrer" className="text-sm text-foreground/70 hover:text-foreground transition-colors">
+            Join Discord
+          </Link>
         </div>
 
         <Button
-          onClick={() => router.push("/ideas")}
+          onClick={() => router.push("/submit-idea")}
           className="bg-gradient-to-r from-primary to-accent hover:opacity-90 text-background font-semibold shadow-lg shadow-primary/50"
         >
           Submit an Idea
