@@ -14,15 +14,41 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import { hackathons } from "@/lib/hackathons"
 
-export default function HackathonsSection() {
+import { hackathons as staticHackathons } from "@/lib/hackathons"
+
+export interface Hackathon {
+  _id: string
+  title: string
+  slug: { current: string }
+  status: "Live" | "Upcoming" | "Completed"
+  prizePool: string
+  dateRange: string
+  location?: string
+  about?: string
+  requirements?: string[]
+  // These might come from Sanity or be calculated
+  participants?: number
+  timeline?: string
+}
+
+export default function HackathonsSection({ hackathons }: { hackathons?: Hackathon[] }) {
   const router = useRouter()
-  const [selectedHackathon, setSelectedHackathon] = useState<typeof hackathons[0] | null>(null)
+  // Simply use Hackathon | null. The static data is mapped to match this interface.
+  const [selectedHackathon, setSelectedHackathon] = useState<Hackathon | null>(null)
   const [email, setEmail] = useState("")
   const [registeredEmail, setRegisteredEmail] = useState<string | null>(null)
   const [isRegistering, setIsRegistering] = useState(false)
   const [registrationSuccess, setRegistrationSuccess] = useState(false)
+
+  // Use passed hackathons or fallback to static data
+  // casting static to any/Hackathon compatible if slightly different
+  const displayHackathons = (hackathons && hackathons.length > 0) ? hackathons : staticHackathons.map(h => ({
+    ...h,
+    _id: h.id.toString(),
+    slug: { current: h.slug }, // static has slug string, sanity has slug object
+    dateRange: h.date, // static has date, sanity has dateRange
+  })) as unknown as Hackathon[]
 
   useEffect(() => {
     const storedEmail = localStorage.getItem("0rca_builder_email")
@@ -31,9 +57,9 @@ export default function HackathonsSection() {
     }
   }, [])
 
-  const handleHackathonClick = (hackathon: typeof hackathons[0]) => {
+  const handleHackathonClick = (hackathon: Hackathon) => {
     if (hackathon.status === "Completed") {
-      router.push(`/hackathons/${hackathon.slug}`)
+      router.push(`/hackathons/${hackathon.slug.current}`)
     } else {
       setSelectedHackathon(hackathon)
     }
@@ -68,9 +94,9 @@ export default function HackathonsSection() {
       <p className="text-foreground/60 mb-12">Compete, build, and win big with the 0rca community</p>
 
       <div className="space-y-4">
-        {hackathons.map((hackathon) => (
+        {displayHackathons.map((hackathon) => (
           <Card
-            key={hackathon.id}
+            key={hackathon._id}
             onClick={() => handleHackathonClick(hackathon)}
             className="group p-6 bg-gradient-to-r from-card to-card/50 border border-white/10 rounded-xl hover:border-custom-hover hover:shadow-lg hover:shadow-custom-hover/20 transition-all duration-300 cursor-pointer"
           >
@@ -92,18 +118,12 @@ export default function HackathonsSection() {
                     {hackathon.status}
                   </Badge>
                 </div>
-                <p className="text-sm text-foreground/60 mb-3">{hackathon.date}</p>
+                <p className="text-sm text-foreground/60 mb-3">{hackathon.dateRange}</p>
                 <div className="flex flex-wrap gap-6">
                   <div>
                     <p className="text-xs text-foreground/50 uppercase tracking-wider">Prize Pool</p>
                     <p className="font-semibold text-foreground">{hackathon.prizePool}</p>
                   </div>
-                  {hackathon.participants > 0 && (
-                    <div>
-                      <p className="text-xs text-foreground/50 uppercase tracking-wider">Participants</p>
-                      <p className="font-semibold text-foreground">{hackathon.participants}+</p>
-                    </div>
-                  )}
                 </div>
               </div>
               <button className="flex items-center gap-2 text-primary hover:text-accent transition-colors font-semibold group-hover:translate-x-1 transition-transform">
@@ -134,7 +154,7 @@ export default function HackathonsSection() {
                 </div>
                 <DialogTitle className="text-2xl font-bold">{selectedHackathon.title}</DialogTitle>
                 <DialogDescription className="text-foreground/60">
-                  {selectedHackathon.description}
+                  {selectedHackathon.about || "Join us for this exciting hackathon"}
                 </DialogDescription>
               </DialogHeader>
 
@@ -152,14 +172,16 @@ export default function HackathonsSection() {
                       <Calendar className="w-4 h-4" />
                       <span className="text-xs uppercase tracking-wider">Timeline</span>
                     </div>
-                    <p className="font-semibold text-sm">{selectedHackathon.date}</p>
+                    <p className="font-semibold text-sm">{selectedHackathon.dateRange}</p>
                   </div>
                 </div>
 
-                <div className="p-3 rounded-lg bg-primary/10 border border-primary/20 text-sm">
-                  <p className="font-medium text-primary mb-1">Timeline Update</p>
-                  <p className="text-foreground/80">{selectedHackathon.timeline}</p>
-                </div>
+                {selectedHackathon.timeline && (
+                  <div className="p-3 rounded-lg bg-primary/10 border border-primary/20 text-sm">
+                    <p className="font-medium text-primary mb-1">Timeline Update</p>
+                    <p className="text-foreground/80">{selectedHackathon.timeline}</p>
+                  </div>
+                )}
 
                 {selectedHackathon.status === "Live" && (
                   <div className="pt-4 border-t border-white/10">
